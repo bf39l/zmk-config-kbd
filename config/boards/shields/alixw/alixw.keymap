@@ -8,6 +8,18 @@
 #define CONF 3
 
 / {
+    behaviors {
+        space_layer: space_layer {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SPACE_LAYER";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "balanced";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
     macros {
         mac_alt_left: mac_alt_left {
             label = "ZM_mac_alt_left";
@@ -83,7 +95,7 @@
                 &kp TAB    &kp Q     &kp W     &kp E      &kp R    &kp T     &kp Y     &kp U     &kp I     &kp O      &kp P    &kp LBKT   &kp RBKT
                 &kp CAPS   &kp A     &kp S     &kp D      &kp F    &kp G     &mo APP   &kp H     &kp J     &kp K      &kp L    &kp SEMI   &kp SQT
                 &kp LSHFT  &kp Z     &kp X     &kp C      &kp V    &kp B     &kp ESC   &kp N     &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RSHFT
-                &kp LCTRL  &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &kp BSLH  &mo FN   &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
+                &kp LCTRL  &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &kp BSLH  &mo FN    &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
             >;
         };
 
@@ -91,9 +103,9 @@
             label = "FN";
             bindings = <
                 &trans     &kp F1    &kp F2    &kp F3     &kp F4  &kp F5     &kp F6    &kp F7        &kp F8         &kp F9         &kp F10         &kp F11  &kp F12
-                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &mac_alt_left &kp UP         &mac_alt_right &trans          &trans   &trans
+                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &kp LA(LEFT)  &kp UP         &kp LA(RIGHT)  &trans          &trans   &trans
                 &trans     &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
-                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &trans        &mac_cmd_left  &trans         &mac_cmd_right  &trans   &kp UP
+                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LG(LEFT)   &trans         &kp LG(RIGHT)   &trans   &kp UP
                 &trans     &trans    &trans    &trans     &kp DEL &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
             >;
         };
