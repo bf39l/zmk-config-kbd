@@ -19,14 +19,24 @@
             bindings = <&mo>, <&kp>;
         };
 
-        tap_hold_mod: tap_hold_mod {
+        tap_meh: tap_meh {
             compatible = "zmk,behavior-hold-tap";
-            label = "TAP_HOLD_MOD";
-            #binding-cells = <2>;
+            label = "TAP_MEH";
+            #binding-cells = <1>;
             tapping-term-ms = <200>;
             quick-tap-ms = <200>;
             flavor = "balanced";
-            bindings = <&macro_param_1to1>, <&kp>;
+            bindings = <&meh>, <&kp>;
+        };
+
+        tap_hyper: tap_hyper {
+            compatible = "zmk,behavior-hold-tap";
+            label = "TAP_HYPER";
+            #binding-cells = <1>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            flavor = "balanced";
+            bindings = <&hyper>, <&kp>;
         };
     };
 
@@ -123,33 +133,33 @@
         default_layer {
             label = "BASE";
             bindings = <
-                &kp GRAVE             &kp N1    &kp N2    &kp N3     &kp N4   &kp N5    &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
-                &kp TAB               &kp Q     &kp W     &kp E      &kp R    &kp T     &kp Y                    &kp U     &kp I     &kp O      &kp P    &kp LBKT   &kp RBKT
-                &tap_hold_mod meh ESC &kp A     &kp S     &kp D      &kp F    &kp G     &kp ENTER                &kp H     &kp J     &kp K      &kp L    &kp SEMI   &kp SQT
-                &kp LSHFT             &kp Z     &kp X     &kp C      &kp V    &kp B     &mo APP                  &kp N     &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RSHFT
-                &kp LCTRL             &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &kp BSLH  &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
+                &kp GRAVE    &kp N1    &kp N2    &kp N3     &kp N4   &kp N5    &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
+                &kp TAB      &kp Q     &kp W     &kp E      &kp R    &kp T     &kp Y                    &kp U     &kp I     &kp O      &kp P    &kp LBKT   &kp RBKT
+                &tap_meh ESC &kp A     &kp S     &kp D      &kp F    &kp G     &kp ENTER                &kp H     &kp J     &kp K      &kp L    &kp SEMI   &kp SQT
+                &kp LSHFT    &kp Z     &kp X     &kp C      &kp V    &kp B     &mo APP                  &kp N     &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RSHFT
+                &kp LCTRL    &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &kp BSLH  &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
             >;
         };
 
         fn_layer {
             label = "FN";
             bindings = <
-                &trans     &kp F1    &kp F2    &kp F3     &kp F4  &kp F5     &kp F6    &kp F7        &kp F8         &kp F9         &kp F10         &kp F11  &kp F12
-                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &kp LA(LEFT)  &kp UP         &kp LA(RIGHT)  &trans          &trans   &trans
-                &kp CAPS   &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
-                &trans     &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LG(LEFT)   &trans         &kp LG(RIGHT)   &trans   &kp UP
-                &trans     &trans    &trans    &trans     &kp DEL &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
+                &trans         &kp F1    &kp F2    &kp F3     &kp F4  &kp F5     &kp F6    &kp F7        &kp F8         &kp F9         &kp F10         &kp F11  &kp F12
+                &trans         &trans    &trans    &trans     &trans  &trans     &trans    &kp LA(LEFT)  &kp UP         &kp LA(RIGHT)  &trans          &trans   &trans
+                &tap_hyper ESC &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
+                &trans         &trans    &trans    &trans     &trans  &trans     &trans    &trans        &kp LG(LEFT)   &trans         &kp LG(RIGHT)   &trans   &kp UP
+                &trans         &trans    &trans    &trans     &kp DEL &trans     &trans    &trans        &kp LEFT       &kp DOWN       &kp RIGHT       &trans   &trans
             >;
         };
 
         app_layer {
             label = "APP";
             bindings = <
-                &trans  &kp C_BRI_DEC  &kp C_BRI_INC  &kp F3  &kp F4  &kp F5  &kp F6   &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP
-                &trans  &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
-                &trans  &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
-                &trans  &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
-                &trans  &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
+                &trans   &kp C_BRI_DEC  &kp C_BRI_INC  &kp F3  &kp F4  &kp F5  &kp F6   &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP
+                &trans   &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
+                &kp CAPS &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
+                &trans   &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
+                &trans   &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
             >;
         };
 
