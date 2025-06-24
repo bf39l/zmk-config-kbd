@@ -44,7 +44,7 @@
         meh: meh {
             label = "ZM_meh";
             compatible = "zmk,behavior-macro";
-            #binding-cells = <1>;
+            #binding-cells = <0>;
             bindings
                 = <&macro_press &kp LSHFT &kp LCTRL &kp LALT>
                 , <&macro_pause_for_release>
@@ -55,7 +55,7 @@
         hyper: hyper {
             label = "ZM_hyper";
             compatible = "zmk,behavior-macro";
-            #binding-cells = <1>;
+            #binding-cells = <0>;
             bindings
                 = <&macro_press &kp LSHFT &kp LCTRL &kp LALT &kp LGUI>
                 , <&macro_pause_for_release>
