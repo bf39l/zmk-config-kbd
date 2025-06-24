@@ -8,6 +8,26 @@
 #define CONF 3
 
 / {
+    behaviors {
+        meh_mod: meh_mod {
+            label = "MEH_MOD";
+            compatible = "zmk,behavior-mod-momentary";
+            #binding-cells = <0>;
+            mods = <(MOD_LCTL | MOD_LALT | MOD_LSFT)>;
+        };
+
+        esc_meh: esc_meh {
+            label = "ESC_MEH";
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp ESC>, <&meh_mod>;
+        };
+    };
+};
+
+/ {
     macros {
         mac_cmd_left: mac_cmd_left {
             label = "ZM_mac_cmd_left";
@@ -57,11 +77,11 @@
         default_layer {
             label = "BASE";
             bindings = <
-                &kp GRAVE                  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                    &kp N6       &kp N7   &kp N8     &kp N9     &kp N0    &kp MINUS  &kp EQUAL
-                &kp TAB                    &kp Q  &kp W  &kp E  &kp R  &kp T                     &kp Y        &kp U    &kp I      &kp O      &kp P     &kp LBKT   &kp RBKT
-                &mt LCTRL LALT LSHFT ESC   &kp A  &kp S  &kp D  &kp F  &kp G      &kp mo APP     &kp H        &kp J    &kp K      &kp L      &kp SEMI  &kp SQT
-                &kp LSHFT                  &kp Z  &kp X  &kp C  &kp V  &kp B      &kp ESC        &kp N        &kp M    &kp COMMA  &kp DOT    &kp SLASH &kp RSHFT
-                &kp LCTRL  &kp LALT  &kp LGUI                       &kp SPACE &kp BSPC  &kp BSLH &lt FN SPACE &kp RGUI &kp RALT   &kp RCTRL  &tog FN   &tog CONF  &kp ENTER
+                &kp GRAVE  &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                    &kp N6       &kp N7   &kp N8     &kp N9     &kp N0    &kp MINUS  &kp EQUAL
+                &kp TAB    &kp Q  &kp W  &kp E  &kp R  &kp T                     &kp Y        &kp U    &kp I      &kp O      &kp P     &kp LBKT   &kp RBKT
+                &esc_meh   &kp A  &kp S  &kp D  &kp F  &kp G      &mo APP        &kp H        &kp J    &kp K      &kp L      &kp SEMI  &kp SQT
+                &kp LSHFT  &kp Z  &kp X  &kp C  &kp V  &kp B      &kp ESC        &kp N        &kp M    &kp COMMA  &kp DOT    &kp SLASH &kp RSHFT
+                &kp LCTRL  &kp LALT  &kp LGUI      &kp SPACE &kp BSPC  &kp BSLH  &lt FN SPACE &kp RGUI &kp RALT   &kp RCTRL  &tog FN   &tog CONF  &kp ENTER
             >;
         };
 
