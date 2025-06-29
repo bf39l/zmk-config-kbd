@@ -1,4 +1,0 @@
-include:
-  - board: nice_nano_v2
-    shield: alixw
-    cmake-args: -DZMK_EXTRA_MODULES=zmk-studio
