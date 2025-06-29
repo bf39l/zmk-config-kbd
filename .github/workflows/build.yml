@@ -5,5 +5,3 @@ jobs:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
       config_path: config
-      shield: alixw
-      board: nice_nano_v2
