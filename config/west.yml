@@ -7,8 +7,5 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-studio
-      remote: zmkfirmware
-      revision: main
   self:
     path: config
