@@ -136,9 +136,9 @@
             bindings = <
                 &kp GRAVE      &kp N1    &kp N2    &kp N3     &kp N4   &kp N5       &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
                 &kp TAB        &kp Q     &kp W     &kp E      &kp R    &kp T        &kp Y                    &kp U     &kp I     &kp O      &kp P    &kp LBKT   &kp RBKT
-                &tap_meh 0 ESC &kp A     &kp S     &kp D      &kp F    &kp G        &kp BSLH                 &kp H     &kp J     &kp K      &kp L    &kp SEMI   &kp SQT
+                &tap_meh 0 ESC &kp A     &kp S     &kp D      &kp F    &kp G        &kp ENTER                &kp H     &kp J     &kp K      &kp L    &kp SEMI   &kp SQT
                 &kp LSHFT      &kp Z     &kp X     &kp C      &kp V    &kp B        &mo APP                  &kp N     &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RSHFT
-                &kp LCTRL      &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &tog COLEMAK &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
+                &kp LCTRL      &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &tog COLEMAK &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp BSLH
             >;
         };
 
@@ -147,9 +147,9 @@
             bindings = <
                 &kp GRAVE      &kp N1    &kp N2    &kp N3     &kp N4   &kp N5      &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
                 &kp TAB        &kp Q     &kp W     &kp F      &kp P    &kp G       &kp J                    &kp L     &kp U     &kp Y      &kp SEMI &kp LBKT   &kp RBKT
-                &tap_meh 0 ESC &kp A     &kp R     &kp S      &kp T    &kp D       &kp BSLH                 &kp H     &kp N     &kp E      &kp I    &kp O      &kp SQT
+                &tap_meh 0 ESC &kp A     &kp R     &kp S      &kp T    &kp D       &kp ENTER                &kp H     &kp N     &kp E      &kp I    &kp O      &kp SQT
                 &kp LSHFT      &kp Z     &kp X     &kp C      &kp V    &kp B       &mo APP                  &kp K     &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RSHFT
-                &kp LCTRL      &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &trans      &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp ENTER
+                &kp LCTRL      &kp LALT  &kp LGUI  &kp SPACE  &kp BSPC &trans      &tap_hold_layer FN SPACE &kp RGUI  &kp RALT  &kp RCTRL  &tog FN  &mo CONF   &kp BSLH
             >;
         };
 
