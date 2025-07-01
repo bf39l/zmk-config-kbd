@@ -43,7 +43,6 @@
 
     macros {
         meh: meh {
-            label = "ZM_meh";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -54,7 +53,6 @@
         };
 
         hyper: hyper {
-            label = "ZM_hyper";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -65,7 +63,6 @@
         };
 
         mac_alt_left: mac_alt_left {
-            label = "ZM_mac_alt_left";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -76,7 +73,6 @@
         };
 
         mac_alt_right: mac_alt_right {
-            label = "ZM_mac_alt_right";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -87,7 +83,6 @@
         };
 
         mac_cmd_left: mac_cmd_left {
-            label = "ZM_mac_cmd_left";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -97,7 +92,6 @@
                 ;
         };
         mac_cmd_right: mac_cmd_right {
-            label = "ZM_mac_cmd_right";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -107,7 +101,6 @@
                 ;
         };
         mac_cmd_up: mac_cmd_up {
-            label = "ZM_mac_cmd_up";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -117,7 +110,6 @@
                 ;
         };
         mac_cmd_down: mac_cmd_down {
-            label = "ZM_mac_cmd_down";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings
@@ -131,8 +123,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            label = "COLEMAK";
+        default_layer { // colemak
             bindings = <
                 &kp GRAVE      &kp N1    &kp N2    &kp N3     &kp N4   &kp N5     &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
                 &kp TAB        &kp Q     &kp W     &kp F      &kp P    &kp G      &kp J                    &kp L     &kp U     &kp Y      &kp SEMI &kp LBKT   &kp RBKT
@@ -142,8 +133,7 @@
             >;
         };
 
-        qwert_layer {
-            label = "QWERT";
+        qwert_layer { // qwert
             bindings = <
                 &kp GRAVE      &kp N1    &kp N2    &kp N3     &kp N4   &kp N5     &kp N6                   &kp N7    &kp N8    &kp N9     &kp N0   &kp MINUS  &kp EQUAL
                 &kp TAB        &kp Q     &kp W     &kp E      &kp R    &kp T      &kp Y                    &kp U     &kp I     &kp O      &kp P    &kp LBKT   &kp RBKT
@@ -153,8 +143,7 @@
             >;
         };
 
-        fn_layer {
-            label = "FN";
+        fn_layer { // fn
             bindings = <
                 &trans           &kp F1    &kp F2    &kp F3     &kp F4  &kp F5     &kp F6    &kp F7        &kp F8         &kp F9         &kp F10         &kp F11  &kp F12
                 &trans           &trans    &trans    &trans     &trans  &trans     &trans    &kp LA(LEFT)  &kp UP         &kp LA(RIGHT)  &trans          &trans   &trans
@@ -164,8 +153,7 @@
             >;
         };
 
-        app_layer {
-            label = "APP";
+        app_layer { // app
             bindings = <
                 &trans   &kp C_BRI_DEC  &kp C_BRI_INC  &kp F3  &kp F4  &kp F5  &kp F6   &kp C_PREV  &kp C_PP  &kp C_NEXT  &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP
                 &trans   &trans         &trans         &trans  &trans  &trans  &trans   &trans      &trans    &trans      &trans      &trans        &trans
@@ -175,8 +163,7 @@
             >;
         };
 
-        conf_layer {
-            label = "CONF";
+        conf_layer { // config
             bindings = <
                 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none  &none  &none  &none  &none  &none  &none  &none  &bootloader
                 &none       &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
