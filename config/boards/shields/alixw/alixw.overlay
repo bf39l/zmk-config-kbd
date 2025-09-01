@@ -14,30 +14,28 @@
 
         wakeup-source;
 
-        row-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                    <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                    <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                    <&gpio1 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                    <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
+        row-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&gpio0 31 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&gpio0 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                    <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         col-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 6 GPIO_ACTIVE_HIGH>,
+                    <&gpio1 8 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 24 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 22 GPIO_ACTIVE_HIGH>,
+                    <&gpio1 29 GPIO_ACTIVE_HIGH>,
+                    <&gpio1 13 GPIO_ACTIVE_HIGH>,
+                    <&gpio1 2 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 15 GPIO_ACTIVE_HIGH>,
                     <&gpio0 9 GPIO_ACTIVE_HIGH>,
                     <&gpio0 10 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 11 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 13 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 15 GPIO_ACTIVE_HIGH>,
-                    <&gpio0 2 GPIO_ACTIVE_HIGH>,
-                    <&gpio0 29 GPIO_ACTIVE_HIGH>,
-                    <&gpio0 31 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 7 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 2 GPIO_ACTIVE_HIGH>,
-                    <&gpio1 1 GPIO_ACTIVE_HIGH>;
+                    
     };
 
     default_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         rows = <5>;
-        columns = <13>;
+        columns = <10>;
 
         map = <
             RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11) RC(0,12)
