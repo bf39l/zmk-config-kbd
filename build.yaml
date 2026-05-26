@@ -4,14 +4,24 @@
 # control, add individual board + shield combinations to
 # the `include` property, e.g:
 #
-# board: [ "nice_nano_v2" ]
+# Main-branch board revisions note:
+# - `nice_nano_v2` (v0.3 style) becomes `nice_nano//zmk` on ZMK main.
+# - Explicit equivalent is `nice_nano@2.0.0//zmk`.
+# - Legacy `nice_nano` maps to `nice_nano@1.0.0//zmk`.
+# docs/blog/2025-12-09-zephyr-4-1.md
+
+# board: [ "nice_nano//zmk" ]
 # shield: [ "corne_left", "corne_right" ]
 # include:
 #   - board: bdn9_rev2
-#   - board: nice_nano_v2
+#   - board: nice_nano//zmk
 #     shield: reviung41
 #
+# docs/blog/2025-12-09-zephyr-4-1.md
+# - nice!nano (`nice_nano`)
+  # - `nice_nano` -> `nice_nano@1.0.0//zmk` (short: `nice_nano@1//zmk`)
+  # - `nice_nano_v2` -> `nice_nano@2.0.0//zmk` (short: `nice_nano//zmk`)
 ---
 include:
-  - board: nice_nano_v2
+  - board: nice_nano@2.0.0//zmk
     shield: alixw
