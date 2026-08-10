@@ -46,6 +46,26 @@ config LV_Z_BITS_PER_PIXEL
 config LV_Z_MEM_POOL_SIZE
     default 8192
 
+# These three are normally pulled in by ZMK_DISPLAY_STATUS_SCREEN_BUILT_IN
+# (app/src/display/Kconfig). We use a custom status screen, so BUILT_IN is off
+# and we have to set them ourselves:
+#   - LV_USE_THEME_MONO: without it no theme is installed at all, so
+#     lv_theme_get_font_small() returns NULL and ZMK_DISPLAY_INVERT stops
+#     existing (it lives inside `if LV_USE_THEME_MONO`).
+#   - MONTSERRAT_12: the theme's small font, used by the layer widget.
+#   - LV_FONT_DEFAULT: Montserrat 16 for everything else.
+# LVGL's own `default y if LV_COLOR_DEPTH_1` for the mono theme is suppressed by
+# ZMK's `imply LV_CONF_MINIMAL`, which is why an explicit default is needed.
+config LV_USE_THEME_MONO
+    default y
+
+config LV_FONT_MONTSERRAT_12
+    default y
+
+choice LV_FONT_DEFAULT
+    default LV_FONT_DEFAULT_MONTSERRAT_16
+endchoice
+
 choice LV_COLOR_DEPTH
     default LV_COLOR_DEPTH_1
 endchoice
