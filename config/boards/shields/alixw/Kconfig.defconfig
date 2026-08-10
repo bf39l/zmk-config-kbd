@@ -6,21 +6,15 @@ config ZMK_KEYBOARD_NAME
 if ZMK_DISPLAY
 
 config ZMK_DISPLAY
-    select LV_USE_CONT
     select LV_FONT_MONTSERRAT_26
     select LV_FONT_MONTSERRAT_16
     select LV_USE_LABEL
-    select LV_USE_IMG
 
 config I2C
 	default y
 
 config SSD1306
 	default y
-
-config SSD1306_REVERSE_MODE
-    bool
-	default n
 
 endif # ZMK_DISPLAY
 
@@ -35,6 +29,13 @@ config LV_DPI_DEF
 
 config LV_Z_BITS_PER_PIXEL
     default 1
+
+# ZMK's generic default (4096) is too small since the Zephyr 4.1 / LVGL 9
+# update: glyph cache allocations fail and FontAwesome symbols (USB, battery,
+# charge bolt) render as solid blocks. See zmkfirmware/zmk#3219 — nice!view got
+# bumped to 5120/8192 for the same reason. We run four widgets incl. WPM.
+config LV_Z_MEM_POOL_SIZE
+    default 8192
 
 choice LV_COLOR_DEPTH
     default LV_COLOR_DEPTH_1
