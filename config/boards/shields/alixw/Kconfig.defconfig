@@ -20,8 +20,17 @@ endif # ZMK_DISPLAY
 
 if LVGL
 
+# Whole-screen redraw instead of partial chunks. At 64% the render buffer can't
+# hold 128x32, so every update is split into several partial areas and pushed
+# through Zephyr's lvgl_display_mono.c transform/flush path -- which is where
+# symbols intermittently come out as placeholder rectangles. 100% + full refresh
+# regenerates every pixel on each update, so nothing can be left stale.
+# Costs 512B for the I1 buffer + 512B for the mono conversion buffer.
+config LV_Z_FULL_REFRESH
+    default y
+
 config LV_Z_VDB_SIZE
-    default 64
+    default 100
 
 config LV_DPI_DEF
     int
