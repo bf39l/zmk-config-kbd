@@ -11,11 +11,11 @@
  *     4bpp anti-aliasing down to 1bpp shreds it into disconnected blobs, so the
  *     literal text "USB" is used instead.
  *   - BLE: stock ZMK uses LV_SYMBOL_WIFI (U+F1EB), a near-solid broadcast fan
- *     that reads as a filled block at this size. LV_SYMBOL_BLUETOOTH (U+F293)
- *     is already compiled into the same font and is far more distinct.
+ *     that reads as a filled block at this size. The literal text "BLE" is used
+ *     instead, to match "USB".
  *
- * The tick / cross / cog markers are kept -- they are thick shapes and survive
- * the 1-bit conversion cleanly.
+ * The tick / cross markers are kept -- they are thick shapes and survive the
+ * 1-bit conversion cleanly.
  */
 
 #include <stdio.h>
@@ -58,9 +58,12 @@ static struct output_status_state get_state(const zmk_event_t *_eh) {
 
 static void set_status_symbol(lv_obj_t *label, struct output_status_state state) {
     /* Every LV_SYMBOL_* is a 3-byte UTF-8 sequence. Longest string here is
-     * BLUETOOTH + " N " + OK = 3 + 3 + 3 = 9 bytes; 24 leaves plenty of slack so
-     * a symbol can never be cut mid-sequence (cf. zmkfirmware/zmk#2444, where an
-     * undersized buffer truncated symbols into invalid UTF-8). */
+     * "BLE N " + OK = 6 + 3 = 9 bytes; 24 leaves plenty of slack so a symbol can
+     * never be cut mid-sequence (cf. zmkfirmware/zmk#2444, where an undersized
+     * buffer truncated symbols into invalid UTF-8).
+     *
+     * Widest rendering is "BLE 2 <tick>" at 66px next to a charging battery at
+     * 56px = 122px of the 128px panel, so the two labels do not collide. */
     char text[24] = {};
 
     enum zmk_transport transport = state.selected_endpoint.transport;
@@ -95,8 +98,7 @@ static void set_status_symbol(lv_obj_t *label, struct output_status_state state)
          * a third state -- LV_SYMBOL_SETTINGS for an unbonded/open profile --
          * dropped here because a cog is indistinguishable from a cross at 16px
          * on a 1-bit panel. Add it back in this branch if you want it. */
-        snprintf(text, sizeof(text), LV_SYMBOL_BLUETOOTH " %i %s",
-                 state.active_profile_index + 1,
+        snprintf(text, sizeof(text), "BLE %i %s", state.active_profile_index + 1,
                  state.active_profile_connected ? LV_SYMBOL_OK : LV_SYMBOL_CLOSE);
         break;
 #endif
