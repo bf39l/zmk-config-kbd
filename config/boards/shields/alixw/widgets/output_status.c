@@ -36,16 +36,23 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 struct output_status_state {
     struct zmk_endpoint_instance selected_endpoint;
     enum zmk_transport preferred_transport;
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+    /* Taken from the active profile rather than the selected endpoint: when the
+     * link drops, selected_endpoint.transport goes to NONE and its ble union
+     * member is meaningless, but we still want to name the profile. */
+    int active_profile_index;
     bool active_profile_connected;
-    bool active_profile_bonded;
+#endif
 };
 
 static struct output_status_state get_state(const zmk_event_t *_eh) {
     return (struct output_status_state){
         .selected_endpoint = zmk_endpoint_get_selected(),
         .preferred_transport = zmk_endpoint_get_preferred_transport(),
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+        .active_profile_index = zmk_ble_active_profile_index(),
         .active_profile_connected = zmk_ble_active_profile_is_connected(),
-        .active_profile_bonded = !zmk_ble_active_profile_is_open(),
+#endif
     };
 }
 
@@ -59,16 +66,22 @@ static void set_status_symbol(lv_obj_t *label, struct output_status_state state)
     enum zmk_transport transport = state.selected_endpoint.transport;
     bool connected = transport != ZMK_TRANSPORT_NONE;
 
-    // If we aren't connected, show what we're *trying* to connect to.
     if (!connected) {
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+        /* Nothing is connected. Stock ZMK falls back to the *preferred*
+         * transport here -- and because ZMK_USB=y makes USB the default
+         * preferred transport, a dropped Bluetooth link rendered as "USB x",
+         * which said nothing about the profile that actually went down. Show
+         * the BLE profile instead, so a disconnect always reads as
+         * <bluetooth> <profile> <cross>. */
+        transport = ZMK_TRANSPORT_BLE;
+#else
+        // Show what we're *trying* to connect to.
         transport = state.preferred_transport;
+#endif
     }
 
     switch (transport) {
-    case ZMK_TRANSPORT_NONE:
-        strcat(text, LV_SYMBOL_CLOSE);
-        break;
-
     case ZMK_TRANSPORT_USB:
         strcat(text, "USB");
         if (!connected) {
@@ -76,19 +89,20 @@ static void set_status_symbol(lv_obj_t *label, struct output_status_state state)
         }
         break;
 
+#if IS_ENABLED(CONFIG_ZMK_BLE)
     case ZMK_TRANSPORT_BLE:
-        if (state.active_profile_bonded) {
-            if (state.active_profile_connected) {
-                snprintf(text, sizeof(text), LV_SYMBOL_BLUETOOTH " %i " LV_SYMBOL_OK,
-                         state.selected_endpoint.ble.profile_index + 1);
-            } else {
-                snprintf(text, sizeof(text), LV_SYMBOL_BLUETOOTH " %i " LV_SYMBOL_CLOSE,
-                         state.selected_endpoint.ble.profile_index + 1);
-            }
-        } else {
-            snprintf(text, sizeof(text), LV_SYMBOL_BLUETOOTH " %i " LV_SYMBOL_SETTINGS,
-                     state.selected_endpoint.ble.profile_index + 1);
-        }
+        /* Tick when the profile is up, cross when it is not. Stock ZMK also has
+         * a third state -- LV_SYMBOL_SETTINGS for an unbonded/open profile --
+         * dropped here because a cog is indistinguishable from a cross at 16px
+         * on a 1-bit panel. Add it back in this branch if you want it. */
+        snprintf(text, sizeof(text), LV_SYMBOL_BLUETOOTH " %i %s",
+                 state.active_profile_index + 1,
+                 state.active_profile_connected ? LV_SYMBOL_OK : LV_SYMBOL_CLOSE);
+        break;
+#endif
+
+    default:
+        strcat(text, LV_SYMBOL_CLOSE);
         break;
     }
 
