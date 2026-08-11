@@ -7,8 +7,29 @@
 #define FN 2
 #define APP 3
 #define CONF 4
+// OS switch. ZMK cannot detect the host OS (zmkfirmware/zmk#2553 is still open,
+// and over BLE there is no USB enumeration to fingerprint), so this is manual.
+// WINMODE is a flag layer -- every key is &trans, so toggling it changes nothing
+// on its own. It only matters in combination with FN, via conditional-layers
+// below. Default (WINMODE off) is macOS, matching the FN layer as written.
+// Layer state is not persisted, so this resets to macOS on every power cycle.
+#define WINMODE 5
+#define FN_WIN 6
 
 / {
+    // Holding FN while WINMODE is toggled on activates FN_WIN, whose only
+    // non-&trans keys are the ones that differ between macOS and Windows/Linux.
+    // then-layer must outrank its if-layers, since ZMK resolves the highest
+    // active layer first -- hence FN_WIN (6) > FN (2) and WINMODE (5).
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        fn_win {
+            if-layers = <FN WINMODE>;
+            then-layer = <FN_WIN>;
+        };
+    };
+
     behaviors {
         tap_hold_layer: tap_hold_layer {
             compatible = "zmk,behavior-hold-tap";
@@ -171,10 +192,41 @@
             display-name = "CONF";
             bindings = <
                 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none  &none  &none  &none  &none  &none  &none  &none  &bootloader
+                &tog WINMODE &none        &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
                 &none       &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
                 &none       &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
                 &none       &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
-                &none       &none         &none         &none         &none  &none  &none  &none  &none  &none  &none  &none  &none
+            >;
+        };
+
+        // Flag layer only -- deliberately all &trans so that toggling it has no
+        // effect by itself. Its whole job is to be the second if-layer of the
+        // fn_win conditional layer above.
+        winmode_layer { // windows/linux mode flag
+            display-name = "WIN";
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        // Windows/Linux overrides for the FN layer. Everything not listed here
+        // is &trans and falls through to fn_layer.
+        //   row 2: word nav      -- macOS Alt+arrow  -> Ctrl+arrow
+        //   row 4: line home/end -- macOS Cmd+arrow  -> Home / End
+        //          (Win+arrow snaps windows on Windows, so leaving LG() would
+        //           be actively wrong rather than merely useless)
+        fn_win_layer { // fn overrides for windows/linux
+            display-name = "FNWIN";
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans         &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp LC(LEFT)  &trans  &kp LC(RIGHT)  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans         &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        &kp HOME &trans        &kp END &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans         &trans  &trans  &trans
             >;
         };
     };

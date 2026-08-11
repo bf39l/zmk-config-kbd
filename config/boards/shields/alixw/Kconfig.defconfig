@@ -3,6 +3,15 @@ if SHIELD_ALIXW
 config ZMK_KEYBOARD_NAME
     default "alixw"
 
+config ALIXW_OS_MODE_LAYER
+    int "Keymap layer index meaning Windows/Linux mode"
+    default 5
+    help
+      Must match WINMODE in alixw.keymap. The os_mode widget shows WIN when this
+      layer is active and MAC otherwise, and the layer_status widget ignores this
+      layer and everything above it so a toggled WINMODE does not mask the layer
+      you are actually typing on.
+
 if ZMK_DISPLAY
 
 config ZMK_DISPLAY
